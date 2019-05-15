@@ -1,0 +1,49 @@
+﻿<div class="header">
+    <div class="hlogo">
+        <div class="logo">
+            <a href='<%linkurl("index")%>' title="{site.company}"><img src="<%templateskin%>/images/logo.png" alt="{site.company}"></a>
+        </div>
+        <div class="logor">
+            <div class="title">
+                <span id="menu"></span>
+                <span id="tdate"></span>
+            </div>
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "{config.webpath}tools/submit_ajax.ashx?action=user_check_login",
+                    dataType: "json",
+                    timeout: 20000,
+                    success: function (data, textStatus) {
+                        if (data.status == 1) {
+                            $("#menu").prepend('<a href="<%linkurl("usercenter","exit")%>">['+data.username+']退出</a>');
+                        } else {
+                            $("#menu").prepend('<a href="<%linkurl("login")%>">员工登录</a>');
+                        }
+                    }
+                });
+            </script>
+            <div class="search">
+                <input id="keywords" name="keywords" x-webkit-speech="" onkeydown="if(event.keyCode==13){SiteSearch('/search.html', '#keywords');return false};" type="text" placeholder="输入关健字">
+                <a href="javascript:;" onclick="SiteSearch('/search.html', '#keywords');"><img src="<%templateskin%>/images/search.png" alt="搜索"></a>
+            </div>
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="navlist">
+            <ul>
+                <li><a href='<%linkurl("index")%>' class="n1">首页</a></li>
+                <li><a href='<%linkurl("content_list",3)%>' class="n2">公司介绍</a></li>
+                <li><a href='<%linkurl("news_list",8)%>' class="n3">新闻资讯</a></li>
+                <li><a href='<%linkurl("document_list",12)%>' class="n4">公司公文</a></li>
+                <li><a href='<%linkurl("zhidu_list",17)%>' class="n5">管理制度</a></li>
+                <li><a href='<%linkurl("culture_list",23)%>' class="n6">企业文化</a></li>
+                <!-- <li><a href='<%linkurl("peixun_list",26)%>' class="n7">培训管理</a></li> -->
+                <li><a href='<%linkurl("huanbao_list",47)%>' class="n8">HSSE管理</a></li>
+                <li><a href='<%linkurl("jingying_list",57)%>' class="n9">生产经营</a></li>
+                <li><a href='<%linkurl("bussiness_list",51)%>' class="n10">企业管理</a></li>
+                <li><a href='<%linkurl("zhuanti_list",39)%>' class="n11">党建专题</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

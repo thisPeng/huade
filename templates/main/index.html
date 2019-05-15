@@ -1,0 +1,572 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{site.seo_title}</title>
+  <%template src="_cssjs.html"%>
+</head>
+
+<body>
+  <%template src="_header.html"%>
+  <div class="bc">
+
+    <div class="w">
+      <div class="banner">
+        <%template src="_banner.html"%>
+      </div>
+    </div>
+
+    <div class="w">
+      <div class="box">
+
+        <div class="box1">
+          <div class="b1left">
+            <%template src="_slide.html"%>
+          </div>
+          <div class="b1mid">
+            <div class="title">
+              <ul class="titleul">
+                <%set DataTable cindex2=get_category_child_list("document", 0)%>
+                <%foreach(DataRow dr in cindex2.Rows)%>
+                <li data-id="{dr[id]}">{dr[title]}</li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <%foreach(DataRow dr in cindex2.Rows)%>
+            <div class="list hide" id="news{dr[id]}">
+              <ul>
+                <%set string str=""%>
+                <%if({strtoint({dr[id]})}==16)%>
+                <%set str="and DateDiff(dd,d_txt1,getdate())<=0"%>
+                <%/if%>
+                <%set DataTable ccmenu=get_article_list("document", {strtoint({dr[id]})}, 10, "status=0"+str)%>
+                <%foreach(DataRow drr in ccmenu.Rows)%>
+                <li><span>[
+                    <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("document_show",{drr[id]})%>'
+                    target="_blank">
+                    <%cutstring({drr[title]},35)%></a></li>
+                <%/foreach%>
+              </ul>
+              <p><a title="{dr[title]}" href='<%linkurl("document_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+            </div>
+            <%/foreach%>
+          </div>
+          <div class="b1right">
+            <div class="title"><a href='<%linkurl("zhuanti")%>'><img src="<%templateskin%>/images/dj.jpg"
+                  alt="党建工作专栏"></a></div>
+            <ul>
+              <li><a href='<%linkurl("message","ldxx")%>'>领导信箱</a></li>
+              <li><a href='<%linkurl("message","xsq")%>'>员工"小诉求"</a></li>
+              <li><a href='<%linkurl("page","huiyi")%>'>一周会议安排</a></li>
+              <li><a href='<%linkurl("page","zhiban")%>'>干部值班表</a></li>
+              <li><a href="javascript:;">火警电话<em>5596001</em></a></li>
+              <li><a href='<%linkurl("page","book")%>'>通讯录</a></li>
+              <li><a href='<%linkurl("page","sgbook")%>'>事故应急通讯</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!--box2数据-->
+        <div class="box2">
+          <div class="b2left">
+
+            <div class="title hoverli">
+              <ul class="titleul">
+                <%set DataTable cindex1=get_category_child_list("news", 0)%>
+                <%foreach(DataRow dr in cindex1.Rows)%>
+                <li data-id="{dr[id]}">{dr[title]}</li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <%foreach(DataRow dr in cindex1.Rows)%>
+            <div class="list hide" id="news{dr[id]}">
+              <ul>
+                <%set DataTable ccmenu=get_article_list("news", {strtoint({dr[id]})}, 8, "status=0")%>
+                <%foreach(DataRow drr in ccmenu.Rows)%>
+                <li><span>[
+                    <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("news_show",{drr[id]})%>'
+                    target="_blank">{drr[title]}</a></li>
+                <%/foreach%>
+              </ul>
+              <p><a title="{dr[title]}" href='<%linkurl("news_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+            </div>
+            <%/foreach%>
+
+
+          </div>
+          <div class="b2mid">
+            <div class="title">
+              <ul class="list titleul">
+                <li class="hover" data-id="c1">原油接输</li>
+                <li data-id="c3">途耗</li>
+                <li data-id="c2">能耗</li>
+                <li data-id="c4">燃料油</li>
+              </ul>
+            </div>
+            <div class="chatimg" id="c1">
+              <!--这里放百度的表格插件-->
+              <iframe src='<%linkurl("echarts1")%>' scrolling="no" frameborder="0" width="457" height="210"></iframe>
+            </div>
+            <div class="chatimg hide" id="c2">
+              <!--这里放百度的表格插件-->
+              <iframe src='<%linkurl("echarts2")%>' scrolling="no" frameborder="0" width="457" height="210"></iframe>
+            </div>
+            <div class="chatimg hide" id="c3">
+              <!--这里放百度的表格插件-->
+              <iframe src='<%linkurl("echarts3")%>' scrolling="no" frameborder="0" width="457" height="210"></iframe>
+            </div>
+            <div class="chatimg hide" id="c4">
+              <!--这里放百度的表格插件-->
+              <iframe src='<%linkurl("echarts4")%>' scrolling="no" frameborder="0" width="410" height="210"></iframe>
+            </div>
+          </div>
+          <div class="b2right">
+            <%set DataTable iii=get_article_list("news", 10, 1, "status=0")%>
+            <%foreach(DataRow dr in iii.Rows)%>
+            <a href='<%linkurl("news_show",{dr[id]})%>' title="{dr[title]}">
+              <img src="{dr[img_url]}" alt="{dr[title]}">
+              <p>{dr[title]}</p>
+            </a>
+            <%/foreach%>
+          </div>
+        </div>
+
+        <!--box3数据-->
+        <div class="box3">
+          <div class="b3left">
+            <div class="title">
+              <ul class="list titleul">
+                <li class="hover" data-id="h0">企业管理</li>
+                <li data-id="h1">HSSE管理</li>
+                <li data-id="h4">HSSE公示</li>
+                <li data-id="h5">HSSE通报</li>
+                <li data-id="h2">生产经营</li>
+                <li data-id="h3">培训管理</li>
+              </ul>
+            </div>
+            <!--企业管理-->
+            <div id="h0" class="js_h">
+              <%set DataTable hhh0=get_category_child_list("bussiness", 0)%>
+              <div class="lanmu2">
+                <%foreach(DataRow dr in hhh0.Rows)%>
+                <a data-id="s{dr[id]}">{dr[title]}</a>
+                <%/foreach%>
+              </div>
+              <%foreach(DataRow dr in hhh0.Rows)%>
+              <div class="list hide" id="s{dr[id]}">
+                <ul>
+                  <%set DataTable ccmenu=get_article_list("bussiness", {strtoint({dr[id]})}, 8, "status=0")%>
+                  <%foreach(DataRow drr in ccmenu.Rows)%>
+                  <li><span>[
+                      <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("bussiness_show",{drr[id]})%>'
+                      target="_blank">{drr[title]}</a></li>
+                  <%/foreach%>
+                </ul>
+                <p><a title="{dr[title]}" href='<%linkurl("bussiness_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+              </div>
+              <%/foreach%>
+            </div>
+            <!--HSSE管理-->
+            <div id="h1" class="hide js_h">
+              <%set DataTable hhh1=get_category_child_list("huanbao", 0)%>
+              <div class="lanmu2">
+                <%foreach(DataRow dr in hhh1.Rows)%>
+                <a data-id="s{dr[id]}">{dr[title]}</a>
+                <%/foreach%>
+              </div>
+              <%foreach(DataRow dr in hhh1.Rows)%>
+              <div class="list hide" id="s{dr[id]}">
+                <ul>
+                  <%set DataTable ccmenu=get_article_list("huanbao", {strtoint({dr[id]})}, 6, "status=0")%>
+                  <%foreach(DataRow drr in ccmenu.Rows)%>
+                  <li><span>[
+                      <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("huanbao_show",{drr[id]})%>'
+                      target="_blank">{drr[title]}</a></li>
+                  <%/foreach%>
+                </ul>
+                <p><a title="{dr[title]}" href='<%linkurl("huanbao_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+              </div>
+              <%/foreach%>
+            </div>
+
+            <!-- HSSE公示 -->
+            <div id="h4" class="hide js_h">
+              <%set DataTable hhh4=get_category_child_list("publicity", 0)%>
+              <div class="lanmu2">
+                <%foreach(DataRow dr in hhh4.Rows)%>
+                <a data-id="s{dr[id]}">{dr[title]}</a>
+                <%/foreach%>
+              </div>
+              <%foreach(DataRow dr in hhh4.Rows)%>
+              <div class="list hide" id="s{dr[id]}">
+                <ul>
+                  <%set DataTable ccmenu4=get_article_list("publicity", {strtoint({dr[id]})}, 8, "status=0")%>
+                  <%foreach(DataRow drr in ccmenu4.Rows)%>
+                  <li><span>[
+                      <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("publicity_show",{drr[id]})%>'
+                      target="_blank">{drr[title]}</a></li>
+                  <%/foreach%>
+                </ul>
+                <p><a title="{dr[title]}" href='<%linkurl("publicity_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+              </div>
+              <%/foreach%>
+            </div>
+
+            <!-- HSSE学习 -->
+            <div id="h5" class="hide js_h">
+              <%set DataTable hhh5=get_category_child_list("study", 0)%>
+              <div class="lanmu2">
+                <%foreach(DataRow dr in hhh5.Rows)%>
+                <a data-id="s{dr[id]}">{dr[title]}</a>
+                <%/foreach%>
+              </div>
+              <%foreach(DataRow dr in hhh5.Rows)%>
+              <div class="list hide" id="s{dr[id]}">
+                <ul>
+                  <%set DataTable ccmenu5=get_article_list("study", {strtoint({dr[id]})}, 8, "status=0")%>
+                  <%foreach(DataRow drr in ccmenu5.Rows)%>
+                  <li><span>[
+                      <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("study_show",{drr[id]})%>'
+                      target="_blank">{drr[title]}</a></li>
+                  <%/foreach%>
+                </ul>
+                <p><a title="{dr[title]}" href='<%linkurl("study_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+              </div>
+              <%/foreach%>
+            </div>
+
+            <!--生产经营-->
+            <div id="h2" class="hide js_h">
+              <%set DataTable hhh2=get_category_child_list("jingying", 0)%>
+              <div class="lanmu2">
+                <%foreach(DataRow dr in hhh2.Rows)%>
+                <%if({dr[call_index]}=="news")%>
+                <a data-id="s{dr[id]}">{dr[title]}</a>
+                <%/if%>
+                <%/foreach%>
+              </div>
+              <%foreach(DataRow dr in hhh2.Rows)%>
+              <%if({dr[call_index]}=="news")%>
+              <div class="list hide" id="s{dr[id]}">
+                <ul>
+                  <%set DataTable ccmenu=get_article_list("jingying", {strtoint({dr[id]})}, 8, "status=0")%>
+                  <%foreach(DataRow drr in ccmenu.Rows)%>
+                  <li><span>[
+                      <%datetostr({drr[add_time]},MM-dd)%>]</span><a
+                      href='<%linkurl("jingying_show",{drr[id]})%>'>{drr[title]}</a></li>
+                  <%/foreach%>
+                </ul>
+                <p><a title="{dr[title]}" href='<%linkurl("jingying_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+              </div>
+              <%/if%>
+              <%/foreach%>
+            </div>
+
+            <!--培训管理-->
+            <div id="h3" class="hide js_h">
+              <%set DataTable hhh3=get_category_child_list("peixun", 0)%>
+              <div class="lanmu2">
+                <%foreach(DataRow dr in hhh3.Rows)%>
+                <a data-id="s{dr[id]}">{dr[title]}</a>
+                <%/foreach%>
+              </div>
+              <%foreach(DataRow dr in hhh3.Rows)%>
+              <div class="list hide" id="s{dr[id]}">
+                <ul>
+                  <%set DataTable ccmenu=get_article_list("peixun", {strtoint({dr[id]})}, 8, "status=0")%>
+                  <%foreach(DataRow drr in ccmenu.Rows)%>
+                  <li><span>[
+                      <%datetostr({drr[add_time]},MM-dd)%>]</span><a
+                      href='<%linkurl("peixun_show",{drr[id]})%>'>{drr[title]}</a></li>
+                  <%/foreach%>
+                </ul>
+                <p><a title="{dr[title]}" href='<%linkurl("peixun_list",{dr[id]})%>'>更多&gt;&gt;</a></p>
+              </div>
+              <%/foreach%>
+            </div>
+
+          </div>
+
+          <!-- 劳动竞赛 -->
+          <div class="b3right">
+            <div class="title hoverli">
+              <ul class="titleul">
+                <%set DataTable ldindex1=get_category_child_list("laodong", 0)%>
+                <%foreach(DataRow dr in ldindex1.Rows)%>
+                <li data-id="{dr[id]}">{dr[title]}</li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <%foreach(DataRow dr in ldindex1.Rows)%>
+            <div class="list hide" id="news{dr[id]}">
+              <ul>
+                <%set DataTable ldmenu=get_article_list("laodong", {strtoint({dr[id]})}, 8, "status=0")%>
+                <%foreach(DataRow drr in ldmenu.Rows)%>
+                <li><span>[
+                    <%datetostr({drr[add_time]},MM-dd)%>]</span><a href='<%linkurl("laodong_show",{drr[id]})%>'
+                    target="_blank">{drr[title]}</a></li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <%/foreach%>
+          </div>
+        </div>
+
+        <!--box4内容-->
+        <div class="box4">
+          <div class="b4left">
+            <div class="imglist" id="marquee1">
+              <ul>
+                <%set DataTable img1=get_article_list("culture", 24, 20, "status=0 and img_url<>''")%>
+                <%foreach(DataRow dr in img1.Rows)%>
+                <li>
+                  <a title="{dr[title]}" href='<%linkurl("culture_list",24)%>' class="item">
+                    <img src="{dr[img_url]}" alt="{dr[title]}">
+                    <p>{dr[title]}</p>
+                  </a>
+                </li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <div class="title">
+              <span>光荣榜</span>
+              <a href='<%linkurl("culture_list",24)%>' class="more">更多&gt;&gt;</a>
+            </div>
+          </div>
+          <div class="b4left b4right">
+            <div class="imglist" id="marquee2">
+              <ul>
+                <%set DataTable img2=get_article_list("culture", 25, 20, "status=0 and img_url<>''")%>
+                <%foreach(DataRow dr in img2.Rows)%>
+                <li>
+                  <a title="{dr[title]}" href='<%linkurl("culture_list",25)%>' class="item">
+                    <img src="{dr[img_url]}" alt="{dr[title]}">
+                    <p>{dr[title]}</p>
+                  </a>
+                </li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <div class="title">
+              <span>职工风采</span>
+              <a href='<%linkurl("culture_list",25)%>' class="more">更多&gt;&gt;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 其他服务 -->
+        <div class="box5">
+          <div class="b5else">
+            <div class="title">
+              <ul class="titleul">
+                <%set DataTable sindex2=get_category_child_list("service", 0)%>
+                <%foreach(DataRow dr in sindex2.Rows)%>
+                <li data-id="{dr[id]}">{dr[title]}</li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <%foreach(DataRow dr in sindex2.Rows)%>
+            <div class="xlist hide" id="news{dr[id]}">
+              <ul>
+                <%set DataTable qita=get_article_list("service", {strtoint({dr[id]})}, 7, "status=0")%>
+                <%foreach(DataRow drr in qita.Rows)%>
+                <li><a href='<%linkurl("service_show",{drr[id]})%>' target="_blank">{drr[title]}</a></li>
+                <%/foreach%>
+              </ul>
+            </div>
+            <%/foreach%>
+          </div>
+        </div>
+        <!-- <%template src="_link.html"%>  -->
+      </div>
+    </div>
+
+  </div>
+  <%template src="_footer.html"%>
+  <script src="<%templateskin%>/js/kxbdSuperMarquee.js"></script>
+  <script>
+    $(function () {
+      $(".n1").addClass("hover");
+      //显示
+      $(".linkdiv").show();
+      //新闻的4个栏目
+      $(".b1mid .titleul li").first().addClass("hover");
+      $(".b1mid .list").first().show();
+      $(".b1mid .titleul li").hover(function () {
+        $(this).addClass("hover");
+        $(".b1mid .titleul li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#news" + id).show();
+        $(".b1mid .list").not("#news" + id).hide();
+      })
+      //其他服务
+      $(".b5else .titleul li").first().addClass("hover");
+      $(".b5else .xlist").first().show();
+      $(".b5else .titleul li").hover(function () {
+        $(this).addClass("hover");
+        $(".b5else .titleul li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#news" + id).show();
+        $(".b5else .xlist").not("#news" + id).hide();
+      })
+      //公司公文4个栏目
+      $(".b2left .titleul li").first().addClass("hover");
+      $(".b2left .titleul li:gt(3)").hide();
+      $(".b2left .list").first().show();
+      $(".b2left .titleul li").hover(function () {
+        $(this).addClass("hover");
+        $(".b2left .titleul li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#news" + id).show();
+        $(".b2left .list").not("#news" + id).hide();
+      })
+      //首页图标
+      $(".b2mid .titleul li").first().addClass("hover");
+      $(".b3left .list").first().show();
+      $(".b2mid .titleul li").hover(function () {
+        $(this).addClass("hover");
+        $(".b2mid .titleul li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $(".chatimg").not("#" + id).hide();
+      })
+      //大项目切换
+      $(".b3left .titleul li").first().addClass("hover");
+      $(".b3left .list").first().show();
+      $(".b3left .titleul li").hover(function () {
+        $(this).addClass("hover");
+        $(".b3left .titleul li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $(".js_h").not("#" + id).hide();
+      })
+
+
+      // // 友情链接
+      // $(".linklist").hover(function () {
+      //     // $(this).addClass("hover");
+      //     // $("#y1").not(this).removeClass("hover");
+      //     // var id = $(this).data("id");
+      //     // $("#" + id).show();
+      //     // $(".list1").not("#" + id).hide();
+      //     $(".linklist").show();
+      // })
+      $(".b5else .linklist li").hover(function () {
+        $(this).addClass("hover");
+        $(".b5else .linklist li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $(".js_h").not("#" + id).hide();
+      })
+
+
+      //HSSE管理
+      $("#h1 .lanmu2 a").first().addClass("hover");
+      $("#h1 .list").first().show();
+      $("#h1 .lanmu2 a").hover(function () {
+        $(this).addClass("hover");
+        $("#h1 .lanmu2 a").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $("#h1 .list").not("#" + id).hide();
+      }, function () {})
+
+      // HSSE公示
+      $("#h4 .lanmu2 a").first().addClass("hover");
+      $("#h4 .list").first().show();
+      $("#h4 .lanmu2 a").hover(function () {
+        $(this).addClass("hover");
+        $("#h4 .lanmu2 a").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $("#h4 .list").not("#" + id).hide();
+      }, function () {})
+
+      // HSSE学习
+      $("#h5 .lanmu2 a").first().addClass("hover");
+      $("#h5 .list").first().show();
+      $("#h5 .lanmu2 a").hover(function () {
+        $(this).addClass("hover");
+        $("#h5 .lanmu2 a").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $("#h5 .list").not("#" + id).hide();
+      }, function () {})
+
+      //企业管理
+      $("#h0 .lanmu2 a").first().addClass("hover");
+      $("#h0 .list").first().show();
+      $("#h0 .lanmu2 a").hover(function () {
+        $(this).addClass("hover");
+        $("#h0 .lanmu2 a").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $("#h0 .list").not("#" + id).hide();
+      }, function () {})
+
+      //生产经营
+      $("#h2 .lanmu2 a").first().addClass("hover");
+      $("#h2 .list").first().show();
+      $("#h2 .lanmu2 a").hover(function () {
+        $(this).addClass("hover");
+        $("#h2 .lanmu2 a").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $("#h2 .list").not("#" + id).hide();
+      }, function () {})
+
+      //培训管理
+      $("#h3 .lanmu2 a").first().addClass("hover");
+      $("#h3 .list").first().show();
+      $("#h3 .lanmu2 a").hover(function () {
+        $(this).addClass("hover");
+        $("#h3 .lanmu2 a").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#" + id).show();
+        $("#h3 .list").not("#" + id).hide();
+      }, function () {})
+
+      //竞赛管理
+      // $(".b3right .titleul li").first().addClass("hover");
+      // $(".b3right .table").first().show();
+      // $(".b3right .titleul li").hover(function () {
+      //     $(this).addClass("hover");
+      //     $(".b3right .titleul li").not(this).removeClass("hover");
+      //     var id = $(this).data("id");
+      //     $("#" + id).show();
+      //     $(".b3right .table").not("#" + id).hide();
+      // })
+
+      $(".b3right .titleul li").first().addClass("hover");
+      $(".b3right .list").first().show();
+      $(".b3right .titleul li").hover(function () {
+        $(this).addClass("hover");
+        $(".b3right .titleul li").not(this).removeClass("hover");
+        var id = $(this).data("id");
+        $("#news" + id).show();
+        $(".b3right .list").not("#news" + id).hide();
+      })
+
+      //图片滚动
+      $('#marquee1').kxbdSuperMarquee({
+        isMarquee: true,
+        isEqual: false,
+        scrollDelay: 50,
+        btnGo: null,
+        direction: 'left'
+      });
+      $('#marquee2').kxbdSuperMarquee({
+        isMarquee: true,
+        isEqual: false,
+        scrollDelay: 50,
+        btnGo: null,
+        direction: 'right'
+      });
+    })
+  </script>
+</body>
+
+</html>

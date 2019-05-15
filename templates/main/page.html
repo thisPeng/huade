@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{model.title} - {site.seo_title}</title>
+    <%template src="_cssjs.html"%>
+</head>
+
+<body>
+    <%template src="_header.html"%>
+    <div class="bc">
+
+        <div class="w">
+            <!-- <div class="banner">
+                <img src="<%templateskin%>/images/banner.jpg" alt="">
+            </div> -->
+        </div>
+
+        <div class="w">
+            <div class="box">
+                <!--内容栏目-->
+                <div class="lmy_main">
+                    <div class="left">
+                        <!-- <div class="l_top">
+                            {model.title}
+                        </div> -->
+                        <div class="l_bottom">
+                            <ul class="ul_f">
+                                <%set DataTable cnews=get_article_list(channel, 0, 0, "status=0")%>
+                                <%foreach(DataRow dr in cnews.Rows)%>
+                                <li class="<%if({strtoint({dr[id]})}=={model.id})%>on<%/if%>">
+                                    <p class="p_f">
+                                        <a href='<%linkurl("page",{dr[call_index]})%>' id="{dr[title]}">{dr[title]}<span class="p_f_s">&gt;</span></a>
+                                    </p>
+                                </li>
+                                <%/foreach%>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="r_top">
+                            <div class="r_t_left">{model.title}</div>
+                        </div>
+                        <div class="page-info"><span>{model.add_time}</span><span><script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_comment_count&channel_id={model.channel_id}&id={model.id}"></script>人评论</span><span><script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_article_click&channel_id={model.channel_id}&id={model.id}&click=1"></script>次</span></div>
+                        <div class="clear"></div>
+                        <div class="entry">
+                            {model.content}
+                        </div>
+                    </div>
+                </div>
+                <!--友情链接-->
+                <%template src="_link.html"%>
+            </div>
+        </div>
+
+    </div>
+    <%template src="_footer.html"%>
+    <script>
+        $(function(){
+            $(".n1").addClass("hover");
+        })
+    </script>
+</body>
+</html>

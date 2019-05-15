@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{model.title} - {site.seo_title}</title>
+    <%template src="_cssjs.html"%>
+    <link href="{config.webpath}css/pagination.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <%template src="_header.html"%>
+    <div class="bc">
+        <div class="w">
+            <!-- <div class="banner">
+                <img src="<%templateskin%>/images/banner/banner4.jpg" alt="">
+            </div> -->
+        </div>
+        <div class="w">
+            <div class="box">
+                <!--内容栏目-->
+                <div class="lmy_main">
+                    <div class="left">
+                        <!-- <div class="l_top">
+                            HSSE管理
+                        </div> -->
+                        <div class="l_bottom">
+                            <ul class="ul_f">
+                                <%set DataTable cnews=get_category_child_list(channel, 0)%>
+                                <%foreach(DataRow dr in cnews.Rows)%>
+                                <li class="<%if({strtoint({dr[id]})}=={category_id})%>on<%/if%>">
+                                    <p class="p_f">
+                                        <a href='<%linkurl("huanbao_list",{dr[id]})%>' id="{dr[title]}">{dr[title]}<span class="p_f_s">&gt;</span></a>
+                                    </p>
+                                    <%set DataTable cnews1=get_category_child_list(channel, {strtoint({dr[id]})})%>
+                                    <%if(cnews1.Rows.Count>0)%>
+                                    <ul class="ul_s">
+                                        <%foreach(DataRow drr in cnews1.Rows)%>
+                                        <li><p><a class="<%if({strtoint({dr[id]})}=={category_id})%>on<%/if%>" href='<%linkurl("huanbao_list",{drr[id]})%>'> • {drr[title]}</a></p></li>
+                                        <%/foreach%>
+                                    </ul>
+                                    <%/if%>
+                                </li>
+                                <%/foreach%>
+                            </ul>
+                        </div>
+                    </div>
+                    <%set DataTable contentList=get_article_list(channel, category_id, pagesize, page, "status=0", out totalcount, out pagelist, "huanbao_list", category_id, "__id__")%><!--取得一个分页DataTable-->
+                    <%if(model.call_index=="news")%>
+                    <div class="right">
+                        <div class="r_top">
+                            <div class="r_t_left">{model.title}</div>
+                        </div>
+                        <div class="news-content">
+                            <ul class="news-list">
+                                <%foreach(DataRow dr in contentList.Rows)%>
+                                <li><a title="{dr[title]}" href='<%linkurl("huanbao_show",{dr[id]})%>'>{dr[title]}</a><span><%datetostr({dr[add_time]},yyyy-MM-dd)%></span></li>
+                                <%/foreach%>
+                            </ul>
+                         </div>
+                        <div class="clear"></div>
+                        <div class="page-box">
+                            <div class="digg">{pagelist}</div>
+                        </div>
+                    </div>
+                    <%else%>
+                    <div class="right">
+                        <div class="r_top">
+                            <div class="r_t_left">{model.title}</div>
+                        </div>
+                        <div class="img-content">
+                            <ul class="img-list">
+                                <%foreach(DataRow dr in contentList.Rows)%>
+                                <li>
+                                    <a title="{dr[title]}" href='<%linkurl("huanbao_show",{dr[id]})%>' class="item">
+                                        <img src="{dr[img_url]}" alt="{dr[title]}">
+                                        <p>{dr[title]}</p>
+                                    </a>
+                                </li>
+                                <%/foreach%>
+                            </ul>
+                         </div>
+                        <div class="clear"></div>
+                        <div class="page-box">
+                            <div class="digg">{pagelist}</div>
+                        </div>
+                    </div>
+                    <%/if%>
+                </div>
+                <!--友情链接-->
+                <%template src="_link.html"%>
+
+            </div>
+        </div>
+
+    </div>
+
+    <%template src="_footer.html"%>
+    <script>
+        $(function(){
+            $(".n8").addClass("hover");
+        })
+    </script>
+</body>
+
+</html>

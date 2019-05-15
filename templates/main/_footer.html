@@ -1,0 +1,25 @@
+<div class="footer">
+    <p>版权所有：华德石化有限公司 &nbsp &nbsp 技术支持：易隆软件</p>
+    <p>联系电话：0752-5599531 &nbsp &nbsp 地址：惠州市大亚湾澳头安惠大道5－2号</p>
+</div>
+<script>
+    //搜索查询
+    function SiteSearch(send_url, divTgs) {
+        var str = $.trim($(divTgs).val());
+        if (str.length > 0 && str != "输入关健字") {
+            window.location.href = send_url + "?keyword=" + encodeURI($(divTgs).val());
+        }
+        return false;
+    }
+    //日期判断
+    $(function(){
+        var d=new Date();
+        var year=d.getFullYear();
+        var month=d.getMonth()+1;
+        var day=d.getDate();
+        var w=d.getDay();
+        var week=["星期天","星期一","星期二","星期三","星期四","星期五","星期六"];
+        var html="欢迎您！ 今天是"+year+"年"+month+"月"+day+"日 "+week[w];
+        $("#tdate").html(html);
+    })
+</script>

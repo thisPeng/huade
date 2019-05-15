@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>党建专题 - {site.seo_title}</title>
+    <%template src="_cssjs.html"%>
+</head>
+
+<body>
+    <%template src="_header.html"%>
+    <div class="bc">
+    <div class="w">
+        <div class="banner">
+            <img src="<%templateskin%>/images/banner.jpg" alt="">
+        </div>
+    </div>
+
+    <div class="w">
+        <div class="box">
+
+            <!--box4内容-->
+            <div class="zhuanti">
+                <%set DataTable zdata=get_category_child_list(channel, 0)%>
+                <%foreach(DataRow dr in zdata.Rows)%>
+                <div class="item">
+                    <div class="title">
+                        <span>{dr[title]}</span>
+                        <a href='<%linkurl("zhuanti_list",{dr[id]})%>' class="more">更多&gt;&gt;</a>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <%set DataTable zmenu=get_article_list(channel, {strtoint({dr[id]})}, 8, "status=0")%>
+                            <%foreach(DataRow drr in zmenu.Rows)%>
+                            <li><span>[<%datetostr({drr[add_time]},yyyy-MM-dd)%>]</span><a href='<%linkurl("zhuanti_show",{drr[id]})%>'>{drr[title]}</a></li>
+                            <%/foreach%>
+                        </ul>
+                    </div>
+                </div>
+                <%/foreach%>
+            </div>
+            <%template src="_link.html"%>
+        </div>
+    </div>
+
+    </div>
+    <%template src="_footer.html"%>
+    <script>
+        $(function(){
+            $(".n11").addClass("hover");
+            $(".item:even").addClass("itemr")
+        })
+    </script>
+</body>
+</html>

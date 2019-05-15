@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%if(action=="ldxx")%>
+    <title>领导信箱 - {site.seo_title}</title>
+    <%else%>
+    <title>员工小诉求 - {site.seo_title}</title>
+    <%/if%>
+    <%template src="_cssjs.html"%>
+    <link type="text/css" rel="stylesheet" href="{config.webpath}css/validate.css" />
+    <link type="text/css" rel="stylesheet" href="{config.webpath}scripts/artdialog/ui-dialog.css" />
+    <script type="text/javascript" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/jquery/jquery.form.min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/jquery/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="{config.webpath}scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" src="<%templateskin%>/js/common.js"></script>
+<script type="text/javascript">
+$(function(){
+	//初始化发表评论表单
+	AjaxInitForm('#feedback_form', '#btnSubmit', 1);
+});
+</script>
+</head>
+
+<body>
+    <%template src="_header.html"%>
+    <div class="bc">
+
+        <div class="w">
+            <div class="banner">
+                <img src="<%templateskin%>/images/banner.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="w">
+            <div class="box">
+                <!--内容栏目-->
+                <div class="lmy_main">
+                    <div class="left">
+                        <div class="l_top">
+                            留言管理
+                        </div>
+                    </div>
+                    <%if(action=="ldxx")%>
+                    <div class="right">
+                        <div class="r_top">
+                            <div class="r_t_left">领导信箱</div>
+                        </div>
+                        <form id="feedback_form" name="feedback_form" url="/plugins/feedback/ajax.ashx?action=add&amp;site=1">
+                <div class="form-box" style="margin:0 20px;">
+                    <dl class="form-group">
+                        <dt>用户昵称：</dt>
+                        <dd>
+                            <input id="txtUserName" name="txtUserName" type="text" class="input" datatype="*" sucmsg=" ">
+                        <span class="Validform_checktip"></span></dd>
+                    </dl>
+                    <dl class="form-group">
+                        <dt>联系电话：</dt>
+                        <dd>
+                            <input id="txtUserTel" name="txtUserTel" type="text" class="input" datatype="*0-20" sucmsg=" ">
+                        <span class="Validform_checktip"></span></dd>
+                    </dl>
+                    <input id="txtUserQQ" name="txtUserQQ" type="hidden" class="input" value="领导信箱">
+                    <dl class="form-group">
+                        <dt>电子邮箱：</dt>
+                        <dd>
+                            <input id="txtUserEmail" name="txtUserEmail" type="text" class="input">
+                        </dd>
+                    </dl>
+                    <dl class="form-group">
+                        <dt>留言标题：</dt>
+                        <dd>
+                            <input id="txtTitle" name="txtTitle" type="text" class="input txt" datatype="*2-100" sucmsg=" ">
+                        <span class="Validform_checktip"></span></dd>
+                    </dl>
+                    <dl class="form-group">
+                        <dt>留言内容：</dt>
+                        <dd>
+                            <textarea id="txtContent" name="txtContent" class="textarea" datatype="*" sucmsg=" " style="height:80px;"></textarea>
+                        <span class="Validform_checktip"></span></dd>
+                    </dl>
+                    <dl class="form-group">
+                        <dt>验 证 码：</dt>
+                        <dd>
+                            <input id="txtCode" name="txtCode" type="text" class="input code" placeholder="输入验证码" datatype="s4-20" nullmsg="请输入右边显示的验证码" sucmsg=" ">
+                            <a href="javascript:;" onclick="ToggleCode(this, '/tools/verify_code.ashx');return false;">
+                                <img src="/tools/verify_code.ashx" width="80" height="22"> 看不清楚？
+                            </a>
+                        <span class="Validform_checktip"></span></dd>
+                    </dl>
+                    <dl class="form-group">
+                      <dd>
+                          <input id="btnSubmit" name="btnSubmit" type="submit" value="发表留言" class="submit">
+                      </dd>
+                    </dl>
+                </div>
+                </form>
+               </div>
+
+               <%else%>
+               <div class="right">
+                    <div class="r_top">
+                        <div class="r_t_left">领导信箱</div>
+                    </div>
+                    <form id="feedback_form" name="feedback_form" url="/plugins/feedback/ajax.ashx?action=add&amp;site=1">
+            <div class="form-box" style="margin:0 20px;">
+                <dl class="form-group">
+                    <dt>用户昵称：</dt>
+                    <dd>
+                        <input id="txtUserName" name="txtUserName" type="text" class="input" datatype="*" sucmsg=" ">
+                    <span class="Validform_checktip"></span></dd>
+                </dl>
+                <dl class="form-group">
+                    <dt>联系电话：</dt>
+                    <dd>
+                        <input id="txtUserTel" name="txtUserTel" type="text" class="input" datatype="*0-20" sucmsg=" ">
+                    <span class="Validform_checktip"></span></dd>
+                </dl>
+                <input id="txtUserQQ" name="txtUserQQ" type="hidden" class="input" value="员工'小诉求'">
+                <dl class="form-group">
+                    <dt>电子邮箱：</dt>
+                    <dd>
+                        <input id="txtUserEmail" name="txtUserEmail" type="text" class="input">
+                    </dd>
+                </dl>
+                <dl class="form-group">
+                    <dt>小诉求标题：</dt>
+                    <dd>
+                        <input id="txtTitle" name="txtTitle" type="text" class="input txt" datatype="*2-100" sucmsg=" ">
+                    <span class="Validform_checktip"></span></dd>
+                </dl>
+                <dl class="form-group">
+                    <dt>小诉求内容：</dt>
+                    <dd>
+                        <textarea id="txtContent" name="txtContent" class="textarea" datatype="*" sucmsg=" " style="height:80px;"></textarea>
+                    <span class="Validform_checktip"></span></dd>
+                </dl>
+                <dl class="form-group">
+                    <dt>验 证 码：</dt>
+                    <dd>
+                        <input id="txtCode" name="txtCode" type="text" class="input code" placeholder="输入验证码" datatype="s4-20" nullmsg="请输入右边显示的验证码" sucmsg=" ">
+                        <a href="javascript:;" onclick="ToggleCode(this, '/tools/verify_code.ashx');return false;">
+                            <img src="/tools/verify_code.ashx" width="80" height="22"> 看不清楚？
+                        </a>
+                    <span class="Validform_checktip"></span></dd>
+                </dl>
+                <dl class="form-group">
+                  <dd>
+                      <input id="btnSubmit" name="btnSubmit" type="submit" value="发表留言" class="submit">
+                  </dd>
+                </dl>
+            </div>
+            </form>
+           </div>
+               <%/if%>
+
+                </div>
+                <%template src="_link.html"%>
+            </div>
+        </div>
+
+    </div>
+    
+    <%template src="_footer.html"%>
+
+</body>
+</html>

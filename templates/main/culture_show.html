@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{model.title} - {site.seo_title}</title>
+    <%template src="_cssjs.html"%>
+    <script type="text/javascript">
+        $(function () {
+            $('.album-list').viewer({
+                url: 'data-original',
+                navbar: false,
+                title: false
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <%template src="_header.html"%>
+    <div class="bc">
+
+        <!-- <div class="w">
+            <div class="banner">
+                <img src="<%templateskin%>/images/banner/banner2.jpg" alt="">
+            </div>
+        </div> -->
+        <%set string category_nav=get_category_menu("culture_list", model.category_id)%>
+        <div class="section">
+            <div class="location">
+                <span>当前位置：</span>
+                <a href="<%linkurl("index")%>">首页</a>
+                <!-- <a href="<%linkurl("culture_list")%>">企业文化</a> -->
+                {category_nav}
+            </div>
+        </div>
+
+        <div class="w">
+            <div class="box">
+                <!--内容栏目-->
+                <div class="lmy_main">
+                    <div class="culture">
+                        <div class="c_top">
+                            <div class="c_t_left">{model.title}</div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="album-list">
+                            <ul>
+                                <%if(model.albums!=null)%>
+                                <%foreach(DTcms.Model.article_albums modelt in model.albums)%>
+                                <li>
+                                    <a title="{modelt.remark}" href="javascript:;">
+                                        <img data-original="{modelt.original_path}" src="{modelt.thumb_path}" />
+                                    </a>
+                                </li>
+                                <%/foreach%>
+                                <%/if%>
+                            </ul>
+                        </div>
+                        <div class="entry">
+                            {model.content}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <%template src="_footer.html"%>
+    <script>
+        $(function () {
+            $(".n6").addClass("hover");
+        })
+    </script>
+</body>
+
+</html>

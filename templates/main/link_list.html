@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>友情链接 - {site.seo_title}</title>
+    <%template src="_cssjs.html"%>
+    <link href="{config.webpath}css/pagination.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <%template src="_header.html"%>
+    <div class="bc">
+        <div class="w">
+            <div class="banner">
+                <img src="<%templateskin%>/images/banner.jpg" alt="">
+            </div>
+        </div>
+        <div class="w">
+            <div class="box">
+                <!--内容栏目-->
+                <div class="lmy_main">
+                    <div class="left">
+                        <div class="l_top">
+                            友情链接
+                        </div>
+                        <div class="l_bottom">
+                            <ul class="ul_f">
+                                <li class="on">
+                                    <p class="p_f">
+                                        <a href='javascript:;' id="友情链接">友情链接<span class="p_f_s">&gt;</span></a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="r_top">
+                            <div class="r_t_left">友情链接</div>
+                        </div>
+                        <div class="link-content">
+                            <ul class="txt-list">
+                                <%set DataTable txtList=new DTcms.Web.Plugin.Link.link().get_link_list(0, "is_image=0")%>
+                                <%foreach(DataRow dr in txtList.Rows)%>
+                                <li><a title="{dr[title]}" href="{dr[site_url]}" target="_blank">{dr[title]}</a></li>
+                                <%/foreach%>
+                            </ul>
+                            <ul class="img-list">
+                                <%set DataTable imgList=new DTcms.Web.Plugin.Link.link().get_link_list(0, "is_image=1")%>
+                                <%foreach(DataRow dr in imgList.Rows)%>
+                                <li>
+                                    <a target="_blank" href="{dr[site_url]}" title="{dr[title]}">
+                                        <img src="{dr[img_url]}" />
+                                        <p>{dr[title]}</p>
+                                    </a>
+                                </li>
+                                <%/foreach%>
+                            </ul>
+                         </div>
+                        <div class="clear"></div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <%template src="_footer.html"%>
+    <script>
+        $(function(){
+            $(".n1").addClass("hover");
+        })
+    </script>
+</body>
+
+</html>

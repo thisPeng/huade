@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+	<title>{model.title}</title>
+	<link href="<%templateskin%>/css/anlistyle.css" rel="stylesheet" />
+	<style type="text/css">
+		body {
+			background: #fafafa;
+			padding: 0px;
+			margin: 0px;
+		}
+
+		.close {
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			cursor: pointer;
+			z-index: 99;
+		}
+
+		.loading {
+			height: 100px;
+			padding-top: 50px;
+			text-align: center;
+		}
+
+		.c {
+			width: 100%;
+			margin: 30px 0px;
+			font-size: 14px;
+			color: #747474;
+			line-height: 180%;
+		}
+
+		.c p {
+			line-height: 180%;
+			font-size: 14px;
+			color: #747474;
+		}
+
+		.myTable {
+			border-top: 1px solid #d8d8d8;
+			border-bottom: 1px solid #d8d8d8;
+		}
+
+		.myTable a {
+			display: block;
+			height: 150px;
+			overflow: hidden;
+			color: #666;
+		}
+
+		.myTable td h2 {
+			font-size: 18px;
+			height: 24px;
+			line-height: 24px;
+			padding-top: 48px;
+		}
+
+		a.left {
+			background: url(<%templateskin%>/images/daLeft.jpg) no-repeat left center;
+			padding-left: 100px;
+			text-align: center;
+			border-right: 1px solid #d8d8d8
+		}
+
+		a.right {
+			background: url(<%templateskin%>/images/daRight.jpg) no-repeat right center;
+			padding-right: 100px;
+			text-align: center;
+		}
+
+		.title {
+			text-align: center;
+			padding-top: 50px;
+		}
+
+		.title h2 {
+			font-size: 28px;
+			height: 32px;
+			line-height: 32px;
+			color: #666;
+		}
+
+		.title h3 {
+			font-size: 14px;
+			height: 32px;
+			line-height: 32px;
+			color: #ccc;
+		}
+	</style>
+	<script src="<%templateskin%>/js/jquery.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$(".close").click(function () {
+				parent.closeBody();
+			});
+			$(".loading").hide();
+
+			setInterval(getnums, 500);
+		});
+
+		function getnums() {
+			$("#myCaseDetail", window.parent.document).height($(".showDetail").height() + 100);
+			//window.parent.showBody();
+		}
+	</script>
+
+</head>
+
+<body>
+	<%set string img1=model.img_url%>
+	<%set string img2=model.img_url%>
+	<%set string img3=model.img_url%>
+	<%set string img4=model.img_url%>
+	<%set string img5=model.img_url%>
+	<%set int index=1%>
+	<%if(model.albums!=null)%>
+	<%foreach(DTcms.Model.article_albums modelt in model.albums)%>
+	<%if(index==1)%>
+	<%set img1=modelt.original_path%>
+	<%/if%>
+	<%if(index==2)%>
+	<%set img2=modelt.original_path%>
+	<%/if%>
+	<%if(index==3)%>
+	<%set img3=modelt.original_path%>
+	<%/if%>
+	<%if(index==4)%>
+	<%set img4=modelt.original_path%>
+	<%/if%>
+	<%if(index==5)%>
+	<%set img5=modelt.original_path%>
+	<%/if%>
+	<%set index=index+1%>
+	<%/foreach%>
+	<%/if%>
+	<%if(index==5)%>
+	<div class="showDetail">
+		<div class="loading"><img src="<%templateskin%>/images/loading.gif" /></div>
+		<img src="{img1}" style="width:100%;" />
+		<div class="title">
+			<h2>{model.title}</h2>
+			<h3></h3>
+		</div>
+
+		<div class="close"><img src="<%templateskin%>/images/cClose.jpg" /></div>
+		<div class="c">
+			<p align="center">
+				<table style="width:100%;" class="ke-zeroborder" border="0" cellspacing="20" bordercolor="#000000" cellpadding="2">
+					<tbody>
+						<tr>
+							<td style="text-align:right;width:50%;vertical-align:top;">
+								<p>
+									<img src="/tools/getimg.ashx?img={img2}&w=491&h=538" alt="" width="491" height="538" />
+								</p>
+								<p>
+									<br />
+								</p>
+								<img src="/tools/getimg.ashx?img={img3}&w=491&h=365" alt="" width="491" height="365" />
+								<p>
+									<br />
+								</p>
+								<p>
+									<br />
+								</p>
+								<p>
+									<br />
+								</p>
+							</td>
+							<td style="text-align:left;vertical-align:top;">
+								<p>
+									<img src="/tools/getimg.ashx?img={img4}&w=493&h=363" alt="" width="493" height="363" />
+								</p>
+								<p>
+									<br />
+								</p>
+								<img src="/tools/getimg.ashx?img={img5}&w=493&h=540" alt="" width="493" height="540" />
+								<p>
+									<br />
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</p>
+			<p align="center">
+				<br />
+			</p>
+		</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="myTable">
+			<tr>
+				<td width="50%" height="150">
+
+					<%=get_prevandnext_article1("pic_show", -1, "没有了", 0)%>
+
+				</td>
+				<td width="50%">
+
+					<%=get_prevandnext_article1("pic_show", 1, "没有了", 0)%>
+
+				</td>
+			</tr>
+		</table>
+	</div>
+	<%else%>
+	<div class="showDetail">
+		<div class="loading"><img src="<%templateskin%>/images/loading.gif" /></div>
+		<img src="{img1}" style="width:100%;" />
+		<div class="title">
+			<h2>{model.title}</h2>
+			<h3></h3>
+		</div>
+		<div class="close"><img src="<%templateskin%>/images/cClose.jpg" /></div>
+		<div class="c">
+			<p align="center">
+				<img src="/tools/getimg.ashx?img={img2}&w=805&h=424" alt="" width="805" height="424" />
+			</p>
+			<p align="center">
+				<table style="width:100%;" class="ke-zeroborder" border="0" cellspacing="20" bordercolor="#000000" cellpadding="2">
+					<tbody>
+						<tr>
+							<td style="text-align:right;width:50%;vertical-align:top;">
+								<p>
+									&nbsp;<img src="/tools/getimg.ashx?img={img3}&w=491&h=538" alt="" width="491" height="538" />
+								</p>
+							</td>
+							<td style="text-align:left;vertical-align:top;">
+								<p>
+									<img src="/tools/getimg.ashx?img={img4}&w=491&h=538" alt="" width="491" height="538" />
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</p>
+			<p align="center">
+				<br />
+			</p>
+			<p>
+				<br />
+			</p>
+			<p style="text-align:center;">
+				<br />
+			</p>
+		</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="myTable">
+			<tr>
+				<td width="50%" height="150">
+
+					<%=get_prevandnext_article1("pic_show", -1, "没有了", 0)%>
+
+				</td>
+				<td width="50%">
+
+					<%=get_prevandnext_article1("pic_show", 1, "没有了", 0)%>
+
+				</td>
+			</tr>
+		</table>
+	</div>
+	<%/if%>
+
+</body>
+
+</html>

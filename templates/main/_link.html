@@ -1,0 +1,25 @@
+<div class="linkdiv">
+    <div class="title">
+        <span>友情链接</span>
+        <a href='<%linkurl("link_list")%>' class="more">更多&gt;&gt;</a>
+    </div>
+    <div class="linklist">
+        <ul class="list1">
+            <%set DataTable imgList=new DTcms.Web.Plugin.Link.link().get_link_list(0, "is_image=1")%>
+            <%foreach(DataRow dr in imgList.Rows)%>
+            <li>
+                <a target="_blank" href="{dr[site_url]}" title="{dr[title]}">
+                    <img src="{dr[img_url]}" />
+                    <p>{dr[title]}</p>
+                </a>
+            </li>
+            <%/foreach%>
+        </ul>
+        <ul class="list2">
+            <%set DataTable txtList=new DTcms.Web.Plugin.Link.link().get_link_list(0, "is_image=0")%>
+            <%foreach(DataRow dr in txtList.Rows)%>
+            <li><a title="{dr[title]}" href="{dr[site_url]}" target="_blank">{dr[title]}</a></li>
+            <%/foreach%>
+        </ul>
+    </div>
+</div>

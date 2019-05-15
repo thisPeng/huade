@@ -1,0 +1,80 @@
+﻿<%set DTcms.Model.article m1=get_model(1)%>
+<%set DTcms.Model.article m2=get_model(2)%>
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body style="height: 100%; margin: 0">
+  <div id="container" style="width:445px;height:208px;"></div>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js">
+  </script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+  <!--<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script> -->
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+  <script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+
+    option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        data: ['原油接卸', '原油输送']
+      },
+      grid: {
+        left: '1%',
+        right: '1%',
+        bottom: '1%',
+        containLabel: true
+      },
+      yAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+      },
+      xAxis: {
+        type: 'category',
+        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+      },
+      series: [{
+          name: '原油接卸',
+          type: 'bar',
+          barGap: '1%',
+          color: '#00BBFF',
+          data: ['{m1.fields[d1]}', '{m1.fields[d2]}', '{m1.fields[d3]}', '{m1.fields[d4]}', '{m1.fields[d5]}',
+            '{m1.fields[d6]}', '{m1.fields[d7]}', '{m1.fields[d8]}', '{m1.fields[d9]}', '{m1.fields[d10]}',
+            '{m1.fields[d11]}', '{m1.fields[d12]}'
+          ]
+        },
+        {
+          name: '原油输送',
+          type: 'bar',
+          barGap: '1%',
+          color: '#f90',
+          data: ['{m2.fields[d1]}', '{m2.fields[d2]}', '{m2.fields[d3]}', '{m2.fields[d4]}', '{m2.fields[d5]}',
+            '{m2.fields[d6]}', '{m2.fields[d7]}', '{m2.fields[d8]}', '{m2.fields[d9]}', '{m2.fields[d10]}',
+            '{m2.fields[d11]}', '{m2.fields[d12]}'
+          ]
+        }
+      ]
+    };;
+    if (option && typeof option === "object") {
+      myChart.setOption(option, true);
+    }
+  </script>
+</body>
+
+</html>
